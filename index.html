@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Earth</title>
+<link rel="stylesheet" href="css/style.css" />
+<style>
+  /* Styles complémentaires (tu peux les supprimer si déjà dans style.css) */
+  .header-content h1 {
+    font-size: 60px;
+    color: var(--primary-light);
+    font-weight: 500;
+  }
+  .header-content p {
+    font-size: 40px;
+    color: var(--primary-dark);
+  }
+  .primary-btn {
+    padding: 10px 24px;
+    background-color: var(--primary-light);
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .primary-btn:hover {
+    background-color: var(--primary-dark);
+  }
+</style>
+</head>
+<body>
+<section id="header">
+  <div class="container">
+    <nav>
+      <div class="logo"><h1>EARTH</h1></div>
+      <ul class="nav-links">
+        <li><a href="#" data-section="home">HOME</a></li>
+        <li><a href="#" data-section="about">ABOUT</a></li>
+        <li><a href="#" data-section="services">SERVICES</a></li>
+        <li><a href="#" data-section="contact">CONTACT</a></li>
+      </ul>
+      <div class="menu-btn"><img src="images/menu.svg" alt="menu" /></div>
+    </nav>
+
+    <div class="header-content" id="header-content">
+      <!-- Contenu dynamique ici -->
+      <h1>EARTH</h1>
+      <p>ENDLESS POTENTIAL</p>
+      <button class="primary-btn">EXPLORE</button>
+    </div>
+  </div>
+</section>
+
+<script>
+  const content = {
+    home: {
+      title: 'EARTH',
+      subtitle: 'ENDLESS POTENTIAL',
+      button: 'EXPLORE'
+    },
+    about: {
+      title: 'WHO ARE WE?'
+    },
+    services: {
+      title: 'SERVICES'
+    }
+    // Pas besoin de contact ici puisque tu n'affiches rien
+  };
+
+  const headerContent = document.getElementById('header-content');
+  const links = document.querySelectorAll('.nav-links a');
+
+  links.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const section = link.getAttribute('data-section');
+
+      if (section === 'home') {
+        headerContent.innerHTML = `
+          <h1>${content.home.title}</h1>
+          <p>${content.home.subtitle}</p>
+          <button class="primary-btn">${content.home.button}</button>
+        `;
+      } else if (section === 'contact') {
+        // Ne rien afficher sur Contact
+        headerContent.innerHTML = '';
+      } else {
+        headerContent.innerHTML = `<h1>${content[section].title}</h1>`;
+      }
+    });
+  });
+
+  // Affiche Home par défaut au chargement
+  window.addEventListener('DOMContentLoaded', () => {
+    links[0].click();
+  });
+</script>
+</body>
+</html>
